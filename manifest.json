@@ -1,0 +1,12 @@
+{
+   "name": "Cookies CSV",
+   "version": "1.0",
+   "description": "Generate csv containing all cookies",
+   "manifest_version": 2,
+   "permissions": ["cookies","<all_urls>","tabs"],
+   "browser_action": {
+      "browser_style": true,
+      "default_title": "List cookies in the active tab",
+      "default_popup": "cookies.html"
+   }
+}
