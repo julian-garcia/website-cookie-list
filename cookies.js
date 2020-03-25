@@ -5,9 +5,11 @@ document.getElementById('websiteUrl').addEventListener('change', function(e){
   sessionStorage.setItem('cookiesWebsiteUrl', e.target.value)
 });
 
+// Retrieve all cookies, including: name/value pair, domain, path, maxage etc. 
 document.getElementById('downloadCSV').addEventListener('click', function(){
-  const downloadLink = this;
   chrome.cookies.getAll({}, function (cookies) {
+    // Not all cookies have the same number of properties, so we need to ensure
+    // that all properties of all cookies to avoid staggered spreadsheet listing
     let globalCookieObject = {};
     cookies.forEach(function(cookie) {
       Object.keys(cookie).forEach(function(item) {
@@ -31,6 +33,8 @@ document.getElementById('downloadCSV').addEventListener('click', function(){
   });
 });
 
+// Listen for all tab updates, extract any internal links from the page 
+// and visit those links, each in their own tab
 chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
   if (changeInfo.status == 'complete' && tab.active) {
     chrome.tabs.executeScript(null,   
